@@ -47,3 +47,14 @@ class SignupForm(forms.Form):
         user = User.objects.create_user(**data)
         profile = Profile(user = user)
         profile.save()
+
+class ProfileForm(forms.ModelForm):
+    
+    website = forms.URLField(max_length = 200, required = False)
+    biography = forms.CharField(max_length = 500, required = False)
+    phone_number = forms.CharField(max_length = 20, required = True)
+    picture = forms.ImageField(required = True)
+
+    class Meta:
+        model = Profile
+        fields = ['website', 'biography', 'phone_number', 'picture']

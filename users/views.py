@@ -14,7 +14,7 @@ from posts.models import Post
 from users.models import Profile
 
 #Form
-from users.forms import SignupForm
+from users.forms import SignupForm, ProfileForm
 
 
 class UsersDetailView(LoginRequiredMixin ,DetailView):
@@ -49,12 +49,13 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     """"Update profile view"""
     template_name = 'users/update_profile.html'
     model = Profile
-    fields = ['website', 'phone_number', 'biography', 'picture']
+    form_class = ProfileForm
     succes_url = 'users:detail'
 
     def get_object(self):
         """Return users profile"""
         return self.request.user.profile
+
     def get_success_url(self):
         """Return to users profile"""
         username = self.object.user.username
